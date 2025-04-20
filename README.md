@@ -8,9 +8,10 @@ TCX activity combiner is a simple Electron JS application for combining two acti
 - **NodeJS** installed (*npm*)
 
 # Usage
-### 0. Simple Setup 
+## Rapid setup **EASY** 
 - Go to project releases and download the installer
 
+## Manual setup **ADVANCED**
 ### 1. First step
 
 - Start by installing ElectronJS using the command :
