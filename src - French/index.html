@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCX activity combiner by 4dapt3rs</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Introduire dans l'ordre les fichiers des deux activités à combiner (format .tcx)</h1>
+        <div class="buttons-container">
+            <button id="openFileBtn" class="btn btn-primary">Activité 1</button>
+            <button id="openSecondFileBtn" class="btn btn-primary">Activité 2</button>
+        </div>
+        <p id="filePath" class="file-path1">Aucune activité sélectionnée</p>
+        <p id="secondFilePath" class="file-path2"></p>
+
+        <button id="validateBtn" class="btn btn-success">Combiner les activités</button>
+    </div>
+
+    <script>
+        let firstFilePath = '';
+        let secondFilePath = '';
+
+        document.getElementById('openFileBtn').addEventListener('click', async () => {
+            const filePaths = await window.electronAPI.openFile();
+            if (filePaths && filePaths.length > 0) {
+                firstFilePath = filePaths[0];
+                document.getElementById('filePath').textContent = `Activité 1: ${firstFilePath.split(/[/\\]/).pop()}`;
+            } else {
+                firstFilePath = '';
+                document.getElementById('filePath').textContent = 'Aucune activité sélectionnée';
+            }
+        });
+
+        document.getElementById('openSecondFileBtn').addEventListener('click', async () => {
+            const filePaths = await window.electronAPI.openFile();
+            if (filePaths && filePaths.length > 0) {
+                secondFilePath = filePaths[0];
+                document.getElementById('secondFilePath').textContent = `Activité 2: ${secondFilePath.split(/[/\\]/).pop()}`;
+            } else {
+                secondFilePath = '';
+                document.getElementById('secondFilePath').textContent = '';
+            }
+        });
+
+        document.getElementById('validateBtn').addEventListener('click', async () => {
+            if (!firstFilePath || !secondFilePath) {
+                alert("Veuillez sélectionner deux activités.");
+                return;
+            }
+
+            try {
+                const combinedPath = await window.electronAPI.combineFiles(firstFilePath, secondFilePath);
+                
+                if (!combinedPath) {
+                    alert("Une erreur est survenue.");
+                    return;
+                }
+
+                alert("Nouvelle activité crée avec succès !");
+            } catch (err) {
+                alert('Erreur lors de la combinaison des activités.');
+                console.error(err);
+            }
+        });
+    </script>
+</body>
+</html>

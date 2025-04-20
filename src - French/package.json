@@ -1,0 +1,15 @@
+{
+  "name": "tcx-activity-combiner",
+  "version": "2.0",
+  "description": "TCX activity combiner (french version)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adapters",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "electron": "^23.3.13"
+  }
+}
